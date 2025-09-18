@@ -1,0 +1,139 @@
+.signup-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 2rem;
+    background: radial-gradient(ellipse at top left, #6a11cb 0%, #b983ff 40%),
+    radial-gradient(ellipse at bottom right, #ff6f91 0%, #ffd6e0 60%);
+
+    position: relative;
+    overflow: hidden;
+
+    &::before,
+    &::after {
+        content: "";
+        position: absolute;
+        width: 520px;
+        height: 520px;
+        border-radius: 50%;
+        filter: blur(70px);
+        opacity: 0.32;
+        animation: float2 16s ease-in-out infinite;
+        pointer-events: none;
+    }
+
+    &::before {
+        top: -160px;
+        right: -120px;
+        background: radial-gradient(circle at 70% 30%, #ff5e62 0%, #ff9966 60%, transparent 70%);
+        animation-delay: 1.5s;
+    }
+
+    &::after {
+        bottom: -160px;
+        left: -140px;
+        background: radial-gradient(circle at 30% 70%, #00d9f5 0%, #00f5a0 60%, transparent 70%);
+        animation-delay: 6s;
+    }
+}
+
+.signup-card {
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(18px) saturate(150%);
+    -webkit-backdrop-filter: blur(18px) saturate(150%);
+    padding: 2.25rem 2.5rem;
+    border-radius: 18px;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.28);
+    width: 100%;
+    max-width: 520px;
+    transform: translateY(10px);
+    animation: cardFadeIn 650ms ease-out forwards;
+}
+
+.signup-title {
+    color: #ffffff;
+    text-align: center;
+    font-weight: 800 !important;
+    letter-spacing: 0.3px;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+    margin-bottom: 0.5rem !important;
+}
+
+/* style MUI TextFields within the card */
+.signup-card .MuiInputBase-root {
+    background: rgba(255, 255, 255, 0.18);
+    border-radius: 12px;
+}
+
+.signup-card .MuiInputLabel-root {
+    color: rgba(20, 20, 20, 0.9);
+}
+
+.signup-card .MuiInputLabel-root.Mui-focused,
+.signup-card .MuiInputLabel-root.MuiFormLabel-filled {
+    color: #111111;
+    font-weight: 700;
+}
+
+.signup-card .MuiInputBase-input::placeholder {
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.signup-card .MuiOutlinedInput-notchedOutline {
+    border-color: rgba(255, 255, 255, 0.35);
+}
+
+.signup-card .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+    border-color: rgba(255, 255, 255, 0.6);
+}
+
+.signup-card .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: rgba(17, 17, 17, 0.9);
+}
+
+.signup-card .MuiOutlinedInput-root.Mui-focused {
+    box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.12), 0 10px 30px rgba(0, 0, 0, 0.2);
+    background: rgba(255, 255, 255, 0.24);
+}
+
+.signup-button {
+    padding: 0.95rem 1rem !important;
+    background: linear-gradient(135deg, #ff5e62, #ff9966) !important;
+    border-radius: 12px !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.3px;
+    color: #fff !important;
+    box-shadow: 0 16px 36px rgba(255, 94, 98, 0.35) !important;
+    transition: transform 0.15s ease, box-shadow 0.35s ease, filter 0.3s ease !important;
+}
+
+.signup-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 22px 46px rgba(255, 94, 98, 0.55) !important;
+    filter: brightness(1.05);
+}
+
+.signup-button:active {
+    transform: translateY(0);
+    box-shadow: 0 12px 28px rgba(255, 94, 98, 0.5) !important;
+}
+
+.signup-error {
+    color: #ffe0e0;
+    text-align: center;
+    margin-bottom: 0.5rem;
+}
+
+@keyframes float2 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(-24px, 18px) scale(1.06); }
+}
+
+@keyframes cardFadeIn {
+    0% { opacity: 0; transform: translateY(18px) scale(0.98); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+

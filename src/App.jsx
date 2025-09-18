@@ -18,7 +18,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/posts/:id" element={<SinglePost />} />
+        <Route path="/posts/:id" element={<PrivateRoute><SinglePost /></PrivateRoute>} />
         <Route path="/register" element={<CreateAccount />} />
         <Route path="/create" element={<PrivateRoute><CreateBlog /></PrivateRoute>} />
         <Route path="/edit/:postId" element={<CreateBlog />} />

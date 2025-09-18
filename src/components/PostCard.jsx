@@ -31,8 +31,21 @@ const PostCard = ({ post }) => {
     }
   };
 
+  const onCardClick = () => {
+    if (token && user) {
+      navigate(`/posts/${post._id}`);
+      return;
+    }
+    const goLogin = window.confirm("You need to login or sign up to view this post. Click OK to login, Cancel to sign up.");
+    if (goLogin) {
+      navigate('/login');
+    } else {
+      navigate('/register');
+    }
+  };
+
   return (
-    <div className="post-card">
+    <div className="post-card" onClick={onCardClick} style={{ cursor: 'pointer' }}>
       {post.image && (
         <img
           src={post.image}

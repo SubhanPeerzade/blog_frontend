@@ -43,40 +43,35 @@ const SinglePost = () => {
 
   return (
     <div className="single-post-page">
-            <IconButton onClick={() => navigate(-1)} className="back-button" style={{ marginBottom: '1rem' }}>
+      <IconButton onClick={() => navigate(-1)} className="back-button" style={{ marginBottom: '1rem' }}>
         ← Back
       </IconButton>
-      <Typography variant="h3" className="post-title">{post.title}</Typography>
+      <div className="post-hero">
+        <div className="post-info">
+          <Typography variant="h3" className="post-title">{post.title}</Typography>
 
-      <div className="post-meta">
-        <span>{new Date(post.createdAt).toLocaleDateString()}</span>
-        <span>•</span>
-        <span>{post.views || 0} Views</span>
-        <span>•</span>
-        <span>{post.comments?.length || 0} Comments</span>
+          <div className="post-meta">
+            <span>{new Date(post.createdAt).toLocaleDateString()}</span>
+            <span>•</span>
+            <span>{post.views || 0} Views</span>
+            <span>•</span>
+            <span>{post.comments?.length || 0} Comments</span>
+          </div>
+
+          <button
+            onClick={() => dispatch(toggleBookmark(post._id))}
+            className="bookmark-btn"
+            aria-pressed={!!post.bookmarked}
+            title={post.bookmarked ? "Remove bookmark" : "Add bookmark"}
+          >
+            {post.bookmarked ? '★ Remove Bookmark' : '☆ Add Bookmark'}
+          </button>
+        </div>
+
+        {post.image && <img src={post.image} alt="post" className="post-image" />}
       </div>
 
-      <button
-        onClick={() => dispatch(toggleBookmark(post._id))}
-        className="bookmark-btn"
-        aria-pressed={!!post.bookmarked}
-        title={post.bookmarked ? "Remove bookmark" : "Add bookmark"}
-        style={{
-          background: '#fff',
-          border: '1px solid #ddd',
-          borderRadius: 8,
-          padding: '6px 10px',
-          cursor: 'pointer',
-          margin: '8px 0',
-          alignSelf: 'flex-start'
-        }}
-      >
-        {post.bookmarked ? '★ Remove Bookmark' : '☆ Add Bookmark'}
-      </button>
-
-      {post.image && <img src={post.image} alt="post" className="post-image" />}
-
-      <div className="post-content">
+      <div className="post-content animated">
         {post.content.split('\n').map((para, i) => (
           <Typography key={i} variant="body1" paragraph>{para}</Typography>
         ))}

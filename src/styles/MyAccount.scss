@@ -1,10 +1,25 @@
 .my-account-card {
     max-width: 600px;
-    margin: 3rem auto;
+    margin: calc(3rem + 64px) auto 3rem auto; /* push below fixed navbar */
     padding: 2rem;
     border-radius: 16px;
-    background: #ffffff;
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,255,255,0.8)),
+                linear-gradient(135deg, rgba(186, 104, 200, 0.14), rgba(255, 111, 145, 0.14));
+    background-size: 200% 200%;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.12);
+    transform: translateY(12px) scale(0.99);
+    opacity: 0;
+    animation: accountCardIn 700ms ease-out forwards;
+    transition: transform 0.2s ease, box-shadow 0.35s ease, filter 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    animation-delay: 60ms;
+    /* Subtle animated background shift */
+    animation-name: accountCardIn, cardGradientShift;
+    animation-duration: 700ms, 22s;
+    animation-timing-function: ease-out, ease;
+    animation-iteration-count: 1, infinite;
 
     .MuiCardContent-root {
         padding: 0;
@@ -32,7 +47,52 @@
 
     .MuiAvatar-root {
         font-size: 1.8rem;
+        position: relative;
+        z-index: 0;
+        isolation: isolate;
     }
+
+    /* Animated gradient ring around avatar */
+    .MuiAvatar-root::after {
+        content: "";
+        position: absolute;
+        inset: -4px; /* ring thickness */
+        border-radius: 50%;
+        background: conic-gradient(from 0deg,
+            #6a11cb,
+            #b983ff,
+            #ff6f91,
+            #ffd6e0,
+            #6a11cb
+        );
+        z-index: -1;
+        animation: avatarRingSpin 6s linear infinite;
+        /* punch a hole for the avatar */
+        -webkit-mask: radial-gradient(circle at 50% 50%, transparent 60%, black 61%);
+                mask: radial-gradient(circle at 50% 50%, transparent 60%, black 61%);
+    }
+}
+
+.my-account-card:hover {
+    transform: translateY(8px) scale(1.005);
+    box-shadow: 0 24px 60px rgba(0,0,0,0.14);
+}
+
+/* Animated gradient border ring around the card */
+.my-account-card::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    background: linear-gradient(135deg, #6a11cb, #b983ff, #ff6f91, #ffd6e0);
+    background-size: 300% 300%;
+    animation: cardBorderShift 16s ease infinite;
+    /* punch content window */
+    -webkit-mask: linear-gradient(#000 0 0) padding-box, linear-gradient(#000 0 0);
+            mask: linear-gradient(#000 0 0) padding-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    padding: 2px; /* border thickness */
 }
 
 .myaccount-loading {
@@ -47,4 +107,26 @@
         margin: 1rem;
         padding: 1.5rem;
     }
+}
+
+@keyframes accountCardIn {
+    0% { opacity: 0; transform: translateY(18px) scale(0.985); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes cardGradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+@keyframes cardBorderShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+@keyframes avatarRingSpin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }

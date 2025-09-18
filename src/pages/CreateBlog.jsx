@@ -57,13 +57,15 @@ const CreateBlog = () => {
     };
 
     if (postId) {
-      await dispatch(updatePost({ id: postId, formData: payload }));
-      await dispatch(fetchMyPosts());
+      const updated = await dispatch(updatePost({ id: postId, formData: payload })).unwrap().catch(() => null);
+      const toId = updated?._id || postId;
+      navigate(`/posts/${toId}`);
+      return;
     } else {
-      await dispatch(createPost(payload));
+      const created = await dispatch(createPost(payload)).unwrap();
+      navigate(`/posts/${created._id}`);
+      return;
     }
-
-    navigate("/my-posts");
   };
   
 
@@ -88,9 +90,10 @@ const CreateBlog = () => {
   
 
   return (
-    <div className="create-blog">
-      <h1>{postId ? "✏️ Update" : "📢 Publish"} Your <span>Blog</span></h1>
-      <form onSubmit={handleSubmit}>
+    <div className="publish-page">
+      <div className="create-blog">
+        <h1>{postId ? "✏️ Update" : "📢 Publish"} Your <span>Blog</span></h1>
+        <form onSubmit={handleSubmit}>
         <label>Title</label>
         <input
           type="text"
@@ -128,7 +131,8 @@ const CreateBlog = () => {
         ></textarea>
 
         <button type="submit">{postId ? "Update" : "Publish"}</button>
-      </form>
+        </form>
+      </div>
     </div>
   );
 };

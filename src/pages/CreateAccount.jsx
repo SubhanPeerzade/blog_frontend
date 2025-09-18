@@ -11,6 +11,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../features/auth/authActions";
 import { useNavigate } from "react-router-dom";
+import "../styles/CreateAccount.scss";
 
 const CreateAccount = () => {
   const dispatch = useDispatch();
@@ -44,16 +45,16 @@ const CreateAccount = () => {
   };
 
   return (
-    <Container maxWidth="sm">
-      <Box sx={{ mt: 5 }}>
-        <Typography variant="h4" gutterBottom>
+    <div className="signup-page">
+      <div className="signup-card">
+        <Typography className="signup-title" variant="h4" gutterBottom>
           Create Account
         </Typography>
 
-        {error && <Alert severity="error">{error}</Alert>}
+        {error && <div className="signup-error">{error}</div>}
         <form onSubmit={handleSubmit}>
           <TextField
-            label="username"
+            label="Username"
             name="username"
             fullWidth
             margin="normal"
@@ -80,17 +81,17 @@ const CreateAccount = () => {
           />
 
           <Button
+            className="signup-button"
             type="submit"
             variant="contained"
             fullWidth
-            sx={{ mt: 2 }}
             disabled={loading}
           >
             {loading ? <CircularProgress size={24} /> : "Create Account"}
           </Button>
         </form>
-      </Box>
-    </Container>
+      </div>
+    </div>
   );
 };
 

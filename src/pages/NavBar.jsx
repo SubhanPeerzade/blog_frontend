@@ -1,7 +1,7 @@
 
 
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import "../styles/navbar.scss";
 import { useSelector } from "react-redux";
 
@@ -20,22 +20,50 @@ const Navbar = () => {
 
   return (
     <nav className="navbar">
-      <Link to="/" className="logo" onClick={() => setMenuOpen(false)}>Bloggram</Link>
+      <Link to="/" className="logo logo-chip" onClick={() => setMenuOpen(false)}>
+        <span className="logo-icon">📝</span>
+        <span className="logo-text">Bloggram</span>
+      </Link>
 
       <div className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)}>
         ☰
       </div>
 
       <ul className={`nav-links ${menuOpen ? "active" : ""}`}>
-        <li><Link to="/" onClick={() => setMenuOpen(false)}>Home</Link></li>
+        <li>
+          <NavLink
+            to="/"
+            className={({ isActive }) => `pill-link${isActive ? " active" : ""}`}
+            onClick={() => setMenuOpen(false)}
+            end
+          >
+            Home
+          </NavLink>
+        </li>
 
         {user ? (
           <>
-            <li><Link to="/my-account" onClick={() => setMenuOpen(false)}>My Account</Link></li>
+            <li>
+              <NavLink
+                to="/my-account"
+                className={({ isActive }) => `pill-link${isActive ? " active" : ""}`}
+                onClick={() => setMenuOpen(false)}
+              >
+                My Account
+              </NavLink>
+            </li>
             <li><button className="logout-btn" onClick={handleLogout}>Logout</button></li>
           </>
         ) : (
-          <li><Link to="/login" className="login-btn" onClick={() => setMenuOpen(false)}>Login</Link></li>
+          <li>
+            <NavLink
+              to="/login"
+              className={({ isActive }) => `login-btn pill-link${isActive ? " active" : ""}`}
+              onClick={() => setMenuOpen(false)}
+            >
+              Login
+            </NavLink>
+          </li>
         )}
       </ul>
     </nav>

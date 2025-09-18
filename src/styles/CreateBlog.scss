@@ -1,13 +1,46 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Roboto&display=swap');
 
+.publish-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    background: radial-gradient(ellipse at top left, #6a11cb 0%, #b983ff 40%),
+                radial-gradient(ellipse at bottom right, #ff6f91 0%, #ffd6e0 60%);
+    position: relative;
+    overflow: hidden;
+
+    &::before,
+    &::after {
+        content: "";
+        position: absolute;
+        width: 520px;
+        height: 520px;
+        border-radius: 50%;
+        filter: blur(70px);
+        opacity: 0.25;
+        pointer-events: none;
+        animation: publishFloat 16s ease-in-out infinite;
+    }
+
+    &::before { top: -160px; left: -160px; background: radial-gradient(circle at 30% 30%, #ff9966 0%, #ff5e62 60%, transparent 70%); }
+    &::after { bottom: -160px; right: -160px; background: radial-gradient(circle at 70% 70%, #00f5a0 0%, #00d9f5 60%, transparent 70%); animation-delay: 6s; }
+}
+
 .create-blog {
     max-width: 800px;
     margin: 3rem auto;
     padding: 2rem;
-    background: #ffffff;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(18px) saturate(150%);
+    -webkit-backdrop-filter: blur(18px) saturate(150%);
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.28);
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    border-radius: 18px;
     font-family: 'Roboto', sans-serif;
+    transform: translateY(10px);
+    animation: cardFadeIn 650ms ease-out forwards;
 
     h1 {
         font-family: 'Playfair Display', serif;
@@ -32,44 +65,60 @@
             font-size: 1rem;
         }
 
-        input,
-        textarea {
-            padding: 0.75rem 1rem;
-            border: 2px solid #e0e0e0;
-            border-radius: 6px;
+        input {
+            padding: 0.85rem 1rem;
+            border: 1px solid rgba(255,255,255,0.35);
+            background: rgba(255, 255, 255, 0.18);
+            color: #111111;
+            border-radius: 12px;
             font-size: 1rem;
             font-family: 'Roboto', sans-serif;
-            transition: border 0.3s;
+            transition: border 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
 
+            &::placeholder { color: rgba(17, 17, 17, 0.6); }
             &:focus {
-                border-color: #000; // Updated border color on focus
+                border-color: rgba(255,255,255,0.85);
                 outline: none;
+                box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.12), 0 10px 30px rgba(0, 0, 0, 0.2);
+                background: rgba(255, 255, 255, 0.24);
+            }
+        }
+
+        textarea {
+            padding: 1rem 1.25rem;
+            border: 1px solid rgba(255,255,255,0.35);
+            background: rgba(255, 255, 255, 0.18);
+            color: #111111;
+            border-radius: 16px;
+            font-size: 1rem;
+            font-family: 'Roboto', sans-serif;
+            transition: border 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+            resize: vertical;
+
+            &::placeholder { color: rgba(17, 17, 17, 0.6); }
+            &:focus {
+                border-color: rgba(255,255,255,0.85);
+                outline: none;
+                box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.12), 0 10px 30px rgba(0, 0, 0, 0.2);
+                background: rgba(255, 255, 255, 0.24);
             }
         }
 
         button {
-            background-color: #000; // Solid black
+            padding: 0.95rem 1rem;
+            background: linear-gradient(135deg, #ff5e62, #ff9966);
+            border-radius: 12px;
+            font-weight: 800;
+            letter-spacing: 0.3px;
             color: #fff;
-            padding: 0.75rem;
-            font-size: 1.1rem;
-            font-weight: bold;
             border: none;
-            border-radius: 8px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 0.5rem;
+            box-shadow: 0 16px 36px rgba(255, 94, 98, 0.35);
+            transition: transform 0.15s ease, box-shadow 0.35s ease, filter 0.3s ease;
 
-            &::before {
-                content: "💾"; // Disk icon
-                font-size: 1.2rem;
-            }
-
-            &:hover {
-                background-color: #222;
-            }
+            &::before { content: "💾"; font-size: 1.2rem; margin-right: 0.35rem; }
+            &:hover { transform: translateY(-2px); box-shadow: 0 22px 46px rgba(255, 94, 98, 0.55); filter: brightness(1.05); }
+            &:active { transform: translateY(0); box-shadow: 0 12px 28px rgba(255, 94, 98, 0.5); }
         }
     }
 }
@@ -86,4 +135,14 @@
             gap: 1rem;
         }
     }
+}
+
+@keyframes publishFloat {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(-24px, 18px) scale(1.06); }
+}
+
+@keyframes cardFadeIn {
+    0% { opacity: 0; transform: translateY(18px) scale(0.98); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
 }
