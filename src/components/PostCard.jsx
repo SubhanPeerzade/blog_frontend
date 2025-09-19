@@ -57,7 +57,7 @@ const PostCard = ({ post }) => {
       <div className="post-header">
         <h3 className="post-title">{post.title}</h3>
         <div className="post-meta">
-          <span className="post-author">{post.author?.username || "Unknown"}</span>
+          <span className="post-author">{post.author?.name || "Unknown"}</span>
           <span className="post-email">{post.author?.email || "Unknown"}</span>
           <span className="post-date">📅 {formattedDate}</span>
         </div>

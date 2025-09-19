@@ -21,16 +21,11 @@ export const loginUser = createAsyncThunk(
 export const registerUser = createAsyncThunk(
     "auth/registerUser",
     async (userData, { rejectWithValue }) => {
-        console.log("[register] Payload before mapping:", userData);
+        console.log("[register] Payload:", userData);
       try {
-        const payload = {
-          ...userData,
-          // Send both username and name for backend compatibility
-          name: userData.name || userData.username || "",
-        };
         const res = await axiosInstance.post(
           `/auth/signup`,
-          payload,
+          userData,
           {
             headers: {
               "Content-Type": "application/json"
@@ -51,6 +46,7 @@ export const registerUser = createAsyncThunk(
           url: `/api/auth/signup`,
         });
         return rejectWithValue(
+          err.response?.data?.msg ||
           err.response?.data?.message ||
           err.response?.data?.error ||
           `Register failed (${err.response?.status || 'network'}): ${err.message}`

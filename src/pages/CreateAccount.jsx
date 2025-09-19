@@ -19,7 +19,7 @@ const CreateAccount = () => {
   const { loading, error, token } = useSelector((state) => state.auth);
 
   const [formData, setFormData] = useState({
-    username: "",
+    name: "",
     email: "",
     password: "",
   });
@@ -54,11 +54,11 @@ const CreateAccount = () => {
         {error && <div className="signup-error">{error}</div>}
         <form onSubmit={handleSubmit}>
           <TextField
-            label="Username"
-            name="username"
+            label="Name"
+            name="name"
             fullWidth
             margin="normal"
-            value={formData.username}
+            value={formData.name}
             onChange={handleChange}
           />
           <TextField
